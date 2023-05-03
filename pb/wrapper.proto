@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package oneof;
+
+option go_package = "github.com/bbengfort/oneof/pb";
+
+import "google/protobuf/timestamp.proto";
+
+message Flat {
+    string id = 1;
+    string topic_id = 2;
+    uint32 mimetype = 3;
+    Type type = 4;
+
+    bytes key = 5;
+    bytes data = 6;
+
+    Encryption encryption = 7;
+    Compression compression = 8;
+    Region geography = 9;
+    Publisher publisher = 10;
+
+    string user_defined_id = 11;
+
+    google.protobuf.Timestamp created = 14;
+    google.protobuf.Timestamp committed = 15;
+}
+
+message Wrapped {
+    string id = 1;
+    string topic_id = 2;
+
+    Region geography = 3;
+    Publisher publisher = 4;
+
+    bytes key = 5;
+    bytes inner = 6;
+
+    google.protobuf.Timestamp committed = 15;
+}
+
+message Inner {
+    uint32 mimetype = 1;
+    Type type = 2;
+
+    Encryption encryption = 3;
+    Compression compression = 4;
+
+    string user_defined_id = 5;
+    bytes data = 6;
+
+    google.protobuf.Timestamp created = 15;
+}
+
+message Type {
+    string name = 1;
+    uint32 major_version = 2;
+    uint32 minor_version = 3;
+    uint32 patch_version = 4;
+}
+
+message Encryption {
+    uint32 algorithm = 1;
+    string key_id = 2;
+    bytes encryption_key = 3;
+    bytes hmac_secret = 4;
+    bytes signature = 5;
+}
+
+message Compression {
+    uint32 algorithm = 1;
+}
+
+message Region {
+    string region = 1;
+    string zone = 2;
+    string country = 3;
+}
+
+message Publisher {
+    string publisher_id = 1;
+    string ipaddr = 2;
+    string client_id = 3;
+    string user_agent = 4;
+}
