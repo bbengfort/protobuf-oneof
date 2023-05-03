@@ -43,7 +43,7 @@ def reshape(data):
 def viz(data):
     data = reshape(data)
     g = sns.relplot(data=data, x='event size (bytes)', y='throughput (ns/op)', hue='message', style='serialization', palette='muted')
-    g.set(xscale='log')
+    plt.gca().set_xscale('log', base=2)
     g.set(yscale='log')
     plt.show()
 
